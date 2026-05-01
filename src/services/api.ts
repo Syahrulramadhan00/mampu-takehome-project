@@ -46,3 +46,11 @@ export async function getEnrichedUsers(): Promise<EnrichedUser[]> {
 export async function getUserDetails(userId: string): Promise<User> {
   return fetchAPI<User>(`/users/${userId}`);
 }
+
+export async function getUserPosts(userId: string): Promise<Post[]> {
+  return fetchAPI<Post[]>(`/users/${userId}/posts`);
+}
+
+export async function getUserTodos(userId: string): Promise<Todo[]> {
+  return fetchAPI<Todo[]>(`/users/${userId}/todos`);
+}
