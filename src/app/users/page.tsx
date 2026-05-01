@@ -10,12 +10,20 @@ export default async function UsersPage() {
   const users = await getEnrichedUsers();
 
   return (
-    <main className="container mx-auto px-4 py-8 max-w-6xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Users Directory</h1>
-        <p className="text-gray-500 mt-2">Manage users and monitor their recent activity.</p>
+    <main className="min-h-screen bg-white">
+      <div className="container mx-auto px-4 py-12 max-w-7xl">
+        <div className="mb-10">
+          <h1 className="text-4xl font-bold tracking-tight" style={{ color: 'var(--color-primary)' }}>Users Directory</h1>
+          <p className="mt-3 text-lg text-gray-600">Manage and monitor all users and their recent activity.</p>
+        </div>
+        {users.length > 0 ? (
+          <UsersTable initialUsers={users} />
+        ) : (
+          <div className="text-center py-16 border border-dashed border-input rounded-lg">
+            <p className="text-lg text-muted-foreground">No users found.</p>
+          </div>
+        )}
       </div>
-            <UsersTable initialUsers={users} />
     </main>
   );
 }

@@ -1,4 +1,3 @@
-// src/types/index.ts
 
 export interface User {
   id: number;
@@ -33,7 +32,6 @@ export interface Todo {
   completed: boolean;
 }
 
-// Our enriched custom type for Task 4
 export interface EnrichedUser extends User {
   activity: {
     totalPosts: number;
