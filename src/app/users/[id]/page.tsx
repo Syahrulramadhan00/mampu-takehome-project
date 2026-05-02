@@ -77,7 +77,7 @@ export default async function UserDetailsPage({ params }: { params: Promise<{ id
                 <Building className="w-4 h-4 text-gray-400 shrink-0 mt-0.5"/> 
                 <div>
                   <p className="font-medium text-gray-900">{user.company.name}</p>
-                  <p className="text-gray-500 italic">"{user.company.catchPhrase}"</p>
+                  <p className="text-gray-500 italic">&quot;{user.company.catchPhrase}&quot;</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">

@@ -113,82 +113,86 @@ export default function UsersTable({ initialUsers }: UsersTableProps) {
       )}
 
       {/* Desktop View: Accessible Table */}
-      <div className="hidden md:block border rounded-md bg-white shadow-sm overflow-hidden">
-        <Table>
-          <TableHeader>
-            <TableRow className="bg-gray-50 hover:bg-gray-50">
-              <TableHead className="w-[300px]">User Details</TableHead>
-              <TableHead>Contact Info</TableHead>
-              <TableHead className="text-center">Total Posts</TableHead>
-              <TableHead className="text-center">Pending Todos</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredAndSortedUsers.map((user) => (
-              <TableRow 
-                key={user.id} 
-                className="cursor-pointer transition-colors"
-                onClick={() => router.push(`/users/${user.id}`)}
-              >
-                <TableCell>
-                  <p className="font-medium text-gray-900">{user.name}</p>
-                  <p className="text-sm text-gray-500">@{user.username}</p>
-                </TableCell>
-                <TableCell>
-                  <p className="text-sm text-gray-900">{user.email}</p>
-                  <a 
-                    href={`https://${user.website}`} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="text-sm text-blue-600 hover:underline"
-                    onClick={(e) => e.stopPropagation()} // Prevent row click when clicking link
-                  >
-                    {user.website}
-                  </a>
-                </TableCell>
-                <TableCell className="text-center">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                    {user.activity.totalPosts}
-                  </span>
-                </TableCell>
-                <TableCell className="text-center">
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                    user.activity.pendingTodos > 0 ? 'bg-orange-100 text-orange-800' : 'bg-green-100 text-green-800'
-                  }`}>
-                    {user.activity.pendingTodos}
-                  </span>
-                </TableCell>
+      {filteredAndSortedUsers.length > 0 && (
+        <div className="hidden md:block border rounded-md bg-white shadow-sm overflow-hidden">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-gray-50 hover:bg-gray-50">
+                <TableHead className="w-[300px]">User Details</TableHead>
+                <TableHead>Contact Info</TableHead>
+                <TableHead className="text-center">Total Posts</TableHead>
+                <TableHead className="text-center">Pending Todos</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-
-      {/* Mobile View: Cards (Prevents squeezed tables) */}
-      <div className="grid grid-cols-1 gap-4 md:hidden">
-        {filteredAndSortedUsers.map((user) => (
-          <Link key={user.id} href={`/users/${user.id}`}>
-            <Card className="hover:border-gray-400 transition-colors shadow-sm">
-              <CardContent className="p-4">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="font-semibold text-gray-900">{user.name}</h3>
+            </TableHeader>
+            <TableBody>
+              {filteredAndSortedUsers.map((user) => (
+                <TableRow 
+                  key={user.id} 
+                  className="cursor-pointer transition-colors"
+                  onClick={() => router.push(`/users/${user.id}`)}
+                >
+                  <TableCell>
+                    <p className="font-medium text-gray-900">{user.name}</p>
                     <p className="text-sm text-gray-500">@{user.username}</p>
-                  </div>
-                  <div className="text-right">
-                    <span className="block text-xs text-gray-500 mb-1">Pending</span>
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                  </TableCell>
+                  <TableCell>
+                    <p className="text-sm text-gray-900">{user.email}</p>
+                    <a 
+                      href={`https://${user.website}`} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="text-sm text-blue-600 hover:underline"
+                      onClick={(e) => e.stopPropagation()} // Prevent row click when clicking link
+                    >
+                      {user.website}
+                    </a>
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                      {user.activity.totalPosts}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-center">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      user.activity.pendingTodos > 0 ? 'bg-orange-100 text-orange-800' : 'bg-green-100 text-green-800'
+                    }`}>
                       {user.activity.pendingTodos}
                     </span>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      )}
+
+      {/* Mobile View: Cards (Prevents squeezed tables) */}
+      {filteredAndSortedUsers.length > 0 && (
+        <div className="grid grid-cols-1 gap-4 md:hidden">
+          {filteredAndSortedUsers.map((user) => (
+            <Link key={user.id} href={`/users/${user.id}`}>
+              <Card className="hover:border-gray-400 transition-colors shadow-sm">
+                <CardContent className="p-4">
+                  <div className="flex justify-between items-start mb-4">
+                    <div>
+                      <h3 className="font-semibold text-gray-900">{user.name}</h3>
+                      <p className="text-sm text-gray-500">@{user.username}</p>
+                    </div>
+                    <div className="text-right">
+                      <span className="block text-xs text-gray-500 mb-1">Pending</span>
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                        {user.activity.pendingTodos}
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className="text-sm text-gray-600 mb-2">{user.email}</div>
-                <div className="text-sm text-blue-600">{user.website}</div>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
-      </div>
+                  <div className="text-sm text-gray-600 mb-2">{user.email}</div>
+                  <div className="text-sm text-blue-600">{user.website}</div>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
